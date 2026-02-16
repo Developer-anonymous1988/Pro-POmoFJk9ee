@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Page Slideshow</title>
+    <link rel="stylesheet" href="styles.css">
+      <!-- Font Awesome -->
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <!-- Toggle Button -->
+  <div class="toggle-btn" id="toggle">
+    <i class="fa-solid fa-bars"></i>
+  </div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <ul>
+      <li class="active"><a href="#"><i class="fa-solid fa-house"></i><span>Home</span></a></li>
+      <li><a href="#"><i class="fa-solid fa-building"></i><span>Company</span></a></li>
+      <li><a href="#"><i class="fa-solid fa-network-wired"></i><span>Networks</span></a></li>
+      <li><a href="#"><i class="fa-solid fa-star"></i><span>Reviews</span></a></li>
+      <li><a href="#"><i class="fa-solid fa-circle-info"></i><span>About Us</span></a></li>
+      <li><a href="#"><i class="fa-solid fa-envelope"></i><span>Contact Us</span></a></li>
+      <li><a href="#"><i class="fa-solid fa-headset"></i><span>Support</span></a></li>
+    </ul>
+  </aside>
+  <main class="content">
+    <h1>Advanced Sidebar Demo</h1>
+  </main>
+    <div class="slider">
+        <div class="slides">
+            <div class="slide active" data-caption="Misty mountain sunrise">
+                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1920&q=80" alt="Misty mountain sunrise" class="slide-image">
+            </div>
+            <div class="slide" data-caption="Calm ocean horizon">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80" alt="Calm ocean horizon" class="slide-image">
+            </div>
+            <div class="slide" data-caption="Sunbeams through the forest">
+                <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1920&q=80" alt="Sunbeams through the forest" class="slide-image">
+            </div>
+            <div class="slide" data-caption="City at golden hour">
+                <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1920&q=80" alt="City at golden hour" class="slide-image">
+            </div>
+            <div class="slide" data-caption="Desert highway">
+                <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1920&q=80" alt="Desert highway" class="slide-image">
+            </div>
+            <div class="slide" data-caption="Aurora over the mountains">
+                <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1920&q=80"  alt="Aurora over the mountains" class="slide-image">
+            </div>
+            <div class="slide" data-caption="Snowy alpine peaks">
+                <img src="https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1920&q=80"  alt="Snowy alpine peaks" class="slide-image">
+            </div>
+        </div>
+
+        <div class="overlay">
+            <h1 id="typing">Loading...</h1>
+        </div>
+
+        <div id="prev" class="nav">❮</div>
+        <div id="next" class="nav">❯</div>
+
+        <div class="dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <!-- New dots for the added slides -->
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

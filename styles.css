@@ -1,0 +1,408 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .slider {
+    inset: 0;
+    z-index: 1;
+    position: fixed;
+  background: #0d1117;
+  overflow: hidden;
+  }
+  
+.slider::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.08), transparent 30%),
+              radial-gradient(circle at 80% 30%, rgba(255,255,255,0.05), transparent 30%),
+              linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.45));
+  pointer-events: none;
+  z-index: 1;
+  }
+  
+.slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Slides */
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.03);
+  transition: opacity 1s ease, transform 1s ease;
+  will-change: opacity, transform;
+  overflow: hidden;
+}
+
+.slide.active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 1;
+}
+
+.slide-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(1.05);
+  transform: scale(1.05);
+  transition: transform 6s ease;
+}
+
+.slide.active .slide-image {
+  transform: scale(1.02);
+}
+  
+  /* Overlay Text */
+  .overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.35);
+  z-index: 2;
+  }
+  
+/* متن روی اسلاید */
+#typing {
+  color: #fff;
+  font-size: clamp(28px, 5vw, 48px);
+  letter-spacing: 2px;
+  text-align: center;
+  white-space: nowrap;
+  text-shadow: 0 10px 40px rgba(0,0,0,0.45);
+  padding: 0 20px;
+}
+  
+  /* Navigation */
+  .nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 50px;
+    color: #fff;
+    cursor: pointer;
+    z-index: 3;
+    user-select: none;
+  padding: 10px 14px;
+  background: rgba(0,0,0,0.35);
+  border-radius: 12px;
+  transition: background 0.3s ease, transform 0.3s ease;
+  }
+  
+  #prev { left: 20px; }
+  #next { right: 20px; }
+  
+.nav:hover {
+  background: rgba(255,255,255,0.12);
+  transform: translateY(-50%) scale(1.05);
+}
+
+  /* Dots */
+  .dots {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    z-index: 3;
+  }
+  
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+  transition: transform 0.2s ease, background 0.2s ease;
+  }
+  
+  .dot.active {
+    background: white;
+  transform: scale(1.15);
+  }
+
+:root {
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-right: env(safe-area-inset-right, 0px);
+  }
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: min(260px, 32vw);
+    height: 100vh;
+    background: #000;
+    display: flex;
+    align-items: center;
+    z-index: 1000; /* 🔥 خیلی مهم */
+    transition: transform 0.4s ease;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    width: 100%;
+  }
+  
+  .sidebar li {
+    width: 100%;
+  }
+  
+  .sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px 30px;
+    color: #bbb;
+    text-decoration: none;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  /* Hover Effect */
+  .sidebar a:hover {
+    background: rgba(168, 85, 247, 0.15);
+    color: #fff;
+    box-shadow: inset 0 0 15px rgba(168,85,247,0.6);
+  }
+  
+.content {
+    position: relative;
+    z-index: 2;
+    margin-right: min(260px, 32vw);
+    padding: clamp(24px, 4vw, 50px);
+  }
+  
+  
+  /* Icons */
+.sidebar i {
+    font-size: 20px;
+    width: 24px;
+    text-align: center;
+  }
+.toggle-btn {
+    position: fixed;
+    top: calc(16px + var(--safe-top));
+    right: calc(20px + var(--safe-right));
+    font-size: 26px;
+    color: #fff;
+    cursor: pointer;
+    z-index: 1100;
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    background: rgba(0,0,0,0.55);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+  }
+  
+ /* حالت بسته */
+.sidebar.closed {
+  transform: translateX(100%);
+}
+.sidebar li.active a {
+  background: rgba(168, 85, 247, 0.25);
+  color: #fff;
+  box-shadow: inset 0 0 20px rgba(168,85,247,0.9),
+              0 0 15px rgba(168,85,247,0.6);
+}
+
+/* Ripple Effect */
+.sidebar a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: var(--ripple-y, 50%);
+    left: var(--ripple-x, 50%);
+    background: rgba(255,255,255,0.25);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .sidebar a.ripple::after {
+    width: 300px;
+    height: 300px;
+    transition: width 0.6s ease, height 0.6s ease;
+  }
+  .sidebar.closed ~ .content {
+    margin-right: 0;
+  }
+:root {
+    --neon-purple: #a855f7;
+    --neon-glow: 0 0 5px #a855f7,
+                 0 0 15px #a855f7,
+                 0 0 30px #7a1cff;
+  }
+  .sidebar a i {
+    transition: all 0.3s ease;
+  }
+  
+  .sidebar a:hover i,
+  .sidebar li.active a i {
+    color: var(--neon-purple);
+    text-shadow: var(--neon-glow);
+  }
+  .sidebar li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 4px;
+    height: 0;
+    background: var(--neon-purple);
+    box-shadow: var(--neon-glow);
+    transition: height 0.3s ease, top 0.3s ease;
+  }
+  
+  .sidebar li:hover::before,
+  .sidebar li.active::before {
+    height: 60%;
+    top: 20%;
+  }
+  @keyframes neonPulse {
+    0%, 100% {
+      box-shadow: 0 0 10px rgba(168,85,247,0.4);
+    }
+    50% {
+      box-shadow: 0 0 25px rgba(168,85,247,1);
+    }
+  }
+  
+  .sidebar li.active a {
+    animation: neonPulse 1.8s infinite;
+  }
+/* ---------- Responsive Tweaks ---------- */
+@media (max-width: 1200px) {
+  .sidebar {
+    width: 230px;
+  }
+  .content {
+    margin-right: 230px;
+    padding: 40px;
+  }
+}
+
+@media (max-width: 900px) {
+  #typing {
+    font-size: 36px;
+    padding: 0 24px;
+    white-space: normal;
+    line-height: 1.3;
+  }
+  .nav {
+    font-size: 40px;
+    padding: 10px 12px;
+  }
+  #prev { left: 16px; }
+  #next { right: 16px; }
+}
+
+@media (max-width: 768px) {
+  html, body {
+    overflow: auto;
+  }
+  .slider {
+    position: fixed;
+    inset: 0;
+  }
+  .sidebar {
+    width: 78vw;
+    max-width: 320px;
+    transform: translateX(100%);
+    border-left: 1px solid rgba(255,255,255,0.08);
+    box-shadow: -8px 0 30px rgba(0,0,0,0.35);
+    background: linear-gradient(135deg, rgba(0,0,0,0.92), rgba(22,6,41,0.9));
+  }
+  .sidebar.closed {
+    transform: translateX(100%);
+  }
+  .sidebar:not(.closed) {
+    transform: translateX(0);
+  }
+  .content,
+  .sidebar.closed ~ .content {
+    margin: 0;
+    padding: 20px;
+  }
+  .toggle-btn {
+    width: 44px;
+    height: 44px;
+  }
+  .dots {
+    bottom: 16px;
+    gap: 8px;
+  }
+  .dot {
+    width: 10px;
+    height: 10px;
+  }
+  .nav {
+    bottom: 18px;
+    top: auto;
+    transform: none;
+    font-size: 32px;
+    padding: 8px 10px;
+    background: rgba(0,0,0,0.45);
+  }
+  #prev { left: 14px; }
+  #next { right: 14px; }
+}
+
+@media (max-width: 520px) {
+  #typing {
+    font-size: clamp(18px, 6vw, 24px);
+    padding: 0 14px;
+  }
+  .toggle-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 22px;
+  }
+  .nav {
+    font-size: 26px;
+    padding: 6px 8px;
+  }
+  .dots {
+    bottom: 12px;
+  }
+}
+
+@media (max-width: 420px) {
+  .sidebar a {
+    padding: 16px 22px;
+    font-size: 16px;
+  }
+  .sidebar i {
+    font-size: 18px;
+  }
+  .nav {
+    bottom: 12px;
+    font-size: 24px;
+    padding: 6px 8px;
+  }
+  .dots {
+    gap: 6px;
+  }
+}
+  
